@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { StarWarsConsumer } from '../../Providers/StarWarsProvider'
 
 class Table extends Component {
     render() { 
@@ -12,15 +13,21 @@ class Table extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        this.props.people.map(item => (
-                            <tr>
-                                <td>{item.name}</td>
-                                <td>{`${item.height} cm.`}</td>
-                                <td>{item.birth_year}</td>
-                            </tr>
-                        ))
-                    }
+                    <StarWarsConsumer>
+                        {
+                            (value) => {
+                                return(
+                                    value.people.map(item => (
+                                        <tr>
+                                            <td>{item.name}</td>
+                                            <td>{`${item.height} cm.`}</td>
+                                            <td>{item.birth_year}</td>
+                                        </tr>
+                                    ))
+                                )
+                            }
+                        }
+                    </StarWarsConsumer>
                 </tbody>
             </table> 
         );
